@@ -6,6 +6,7 @@ const ThisQuestion = () => {
     const { id } = useParams();
     const [question, setQuestion] = useState(null);
     const [answer, setAnswer] = useState([]);
+    const [createAns, setCreateAns] = useState('');
     const email = localStorage.getItem('Email');
 
     useEffect(() => {
@@ -88,6 +89,44 @@ const ThisQuestion = () => {
             console.error(`Error updating ${voteType}:`, error);
         }
     };
+
+    const handleChange = (e) => {
+       setCreateAns(e.target.value);
+        
+    };
+
+    const handleAnswerSubmit = async (e) => {
+        e.preventDefault();
+        if (!createAns) return;
+
+        const answerData = {
+            questionId: id,
+            
+            answer: createAns,
+            userEmail: email
+           
+        };
+
+        try {
+            const response = await fetch(`${base_url}answer/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(answerData)
+            });
+
+            if (response.ok) {
+                const createdAnswer = await response.json();
+                setAnswer((prevAnswers) => [...prevAnswers, createdAnswer]);
+                setCreateAns(''); 
+            } else {
+                console.error("Failed to submit answer:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error submitting answer:", error);
+        }
+    };
     
 
     if (!question) {
@@ -106,10 +145,22 @@ const ThisQuestion = () => {
                     <img src={question.imageUrl} alt="Related" style={{ maxWidth: '20%', height: 'auto' }} />
                 </div>
             )}
-            {!email && (
+            {!email ? (
                 <div>
                     You need to log in to write an answer! <Link to="/Login"><button>LOGIN</button></Link>
                 </div>
+
+              
+            ):(
+                <form onSubmit={handleAnswerSubmit}>
+                    <textarea
+                        value={createAns}
+                        onChange={handleChange}
+                        placeholder="Write your answer here..."
+                        required
+                    />
+                    <button type="submit">Submit Answer</button>
+                </form>
             )}
             {answer.length > 0 ? (
                 answer.map((ans) => (

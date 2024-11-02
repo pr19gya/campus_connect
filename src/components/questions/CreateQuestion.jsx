@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { base_url } from '../../base_url';
 import { Link } from 'react-router-dom';
-// import { GoogleGenerativeAI } from "@google/generativeai";
+
 
 const CreateQuestion = () => {
     const [formData, setFormData] = useState({
@@ -14,12 +14,12 @@ const CreateQuestion = () => {
     });
     const [loadingAI, setLoadingAI] = useState(false);  
 
-    const GEMINI_API_KEY = import.meta.env.VITE_APP_GEMINI_API_KEY; // Replace with your actual API key
-    // console.log(GEMINI_API_KEY);
+    const GEMINI_API_KEY = import.meta.env.VITE_APP_GEMINI_API_KEY; 
+   
     const generateAIAnswer = async () => {
-        setLoadingAI(true); // Start loading AI response
+        setLoadingAI(true); 
         try {
-            // Dynamically import the Google Generative AI module
+            
             const { GoogleGenerativeAI } = await import('https://esm.run/@google/generative-ai');
             
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
@@ -29,7 +29,7 @@ const CreateQuestion = () => {
             const result = await model.generateContent(prompt);
             const apiAnswer = result.response.text();
             
-            // Update the formData with AI-generated answer
+            
             setFormData((prevData) => ({
                 ...prevData,
                 apiAnswer: apiAnswer
@@ -41,7 +41,7 @@ const CreateQuestion = () => {
                 apiAnswer: 'Error generating AI response.'
             }));
         } finally {
-            setLoadingAI(false); // Stop loading after AI response
+            setLoadingAI(false); 
         }
     };
 
