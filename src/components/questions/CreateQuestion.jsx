@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { base_url } from '../../base_url';
 import { Link } from 'react-router-dom';
+import isLoggedIn from '../utlis/isLoggedIn';
 
 
 const CreateQuestion = () => {
@@ -115,7 +116,7 @@ const CreateQuestion = () => {
         }
     };
 
-    if (!email) {
+    if (!isLoggedIn()) {
         return (
             <div>
                 <h2>You need to log in to create a question!</h2>

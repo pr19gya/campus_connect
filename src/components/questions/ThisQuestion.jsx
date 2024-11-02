@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base_url } from '../../base_url';
+import isLoggedIn from '../utlis/isLoggedIn';
 
 const ThisQuestion = () => {
     const { id } = useParams();
@@ -127,7 +128,15 @@ const ThisQuestion = () => {
             console.error("Error submitting answer:", error);
         }
     };
-    
+
+    const handleVote = (ansId, voteType)=>{
+        if(!isLoggedIn()){
+            alert("You need to logIn to vote");
+        }
+        else{
+            toggleVotes(ansId,voteType);
+        }
+    }
 
     if (!question) {
         return <p>Loading...</p>;
@@ -145,7 +154,7 @@ const ThisQuestion = () => {
                     <img src={question.imageUrl} alt="Related" style={{ maxWidth: '20%', height: 'auto' }} />
                 </div>
             )}
-            {!email ? (
+            {!isLoggedIn() ? (
                 <div>
                     You need to log in to write an answer! <Link to="/Login"><button>LOGIN</button></Link>
                 </div>
@@ -166,10 +175,10 @@ const ThisQuestion = () => {
                 answer.map((ans) => (
                     <div key={ans._id}>
                         <div>{ans.answer}</div>
-                        <button onClick={() => toggleVotes(ans._id, 'upvote')}>
+                        <button onClick={() => handleVote(ans._id, 'upvote')}>
                             Upvotes: {ans.upvotedBy.length}
                         </button>
-                        <button onClick={() => toggleVotes(ans._id, 'downvote')}>
+                        <button onClick={() => handleVote(ans._id, 'downvote')}>
                             Downvotes: {ans.downvotedBy.length}
                         </button>
                         <br /><br />

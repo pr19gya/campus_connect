@@ -13,7 +13,7 @@ const AllQuestions = () => {
             try {
                 const response = await fetch(`${base_url}question/getall`);
                 if (response.ok) {
-                    const data = await response.json();
+                    const data = await response.json(); 
                     setQuestions(data);
                     setFilteredQuestions(data);
 

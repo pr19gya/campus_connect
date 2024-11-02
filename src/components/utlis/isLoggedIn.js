@@ -1,5 +1,4 @@
-const isLoggedIn = () =>{
-  const token = localStorage.getItem('Token');
-  return !!token;
-}
+const isLoggedIn = () => {
+  return !!localStorage.getItem('Token');
+};
 export default isLoggedIn

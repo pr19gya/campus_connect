@@ -1,9 +1,11 @@
 import React from 'react'
 import ThisQuestionC from '../../components/questions/ThisQuestion'
+import Navbar from '../../components/Navbar'
 
 const ThisQuestion = () => {
   return (
     <div>
+        <Navbar/>
         <ThisQuestionC/>
     </div>
   )
