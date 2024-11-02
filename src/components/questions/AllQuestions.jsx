@@ -81,25 +81,20 @@ const AllQuestions = () => {
             </div>
             {filteredQuestions.length > 0 ? (
                 filteredQuestions.map((question) => (
-                    <div key={question._id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
-                        <h3>{question.title}</h3>
-                        <p><strong>Description:</strong> {question.description}</p>
-                        <p><strong>Posted By:</strong> {question.postedBy}</p>
-                        <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
-                        <p><strong>Answer:</strong> {question.apiAnswer}</p>
-                        <p><strong>Created At:</strong> {new Date(question.createdAt).toLocaleString()}</p>
-                        
-                        {question.imageUrl && (
-                            <div>
-                                <strong>Image:</strong>
-                                <img
-                                    src={question.imageUrl}
-                                    alt="Question related"
-                                    style={{ maxWidth: '10%', height: 'auto', marginTop: '10px' }}
-                                />
-                            </div>
-                        )}
-                    </div>
+                    <Link to={`/question/${question.questionId}`} key={question.questionId} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
+                            <h3>{question.title}</h3>
+                            <p><strong>Description:</strong> {question.description}</p>
+                            <p><strong>Posted By:</strong> {question.postedBy}</p>
+                            <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
+                            <p><strong>Answer:</strong> {question.apiAnswer || "Answer not generated yet."}</p>
+                            {question.imageUrl && (
+                                <div>
+                                    <img src={question.imageUrl} alt="Question related" style={{ maxWidth: '10%', height: 'auto', marginTop: '10px' }} />
+                                </div>
+                            )}
+                        </div>
+                    </Link>
                 ))
             ) : (
                 <p>No questions available.</p>

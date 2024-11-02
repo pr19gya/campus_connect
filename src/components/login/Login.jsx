@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { base_url } from '../../base_url';
 import isLogginIn from '../utlis/isLoggedIn';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -68,6 +68,7 @@ const Login = () => {
                 onChange={handleChange}/>
             <button type="submit">Login</button>
         </form>
+        <Link>Don't have an account? Register Here!</Link>
     </div>
   )
 }
