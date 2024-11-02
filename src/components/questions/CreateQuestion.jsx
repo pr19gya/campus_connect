@@ -14,13 +14,14 @@ const CreateQuestion = () => {
     });
     const [loadingAI, setLoadingAI] = useState(false);  
 
-    const GEMINI_API_KEY = "AIzaSyAHySmr1_dEzz7aa3CtZ1NPLWWlZLONXOg"; // Replace with your actual API key
-
+    const GEMINI_API_KEY = import.meta.env.VITE_APP_GEMINI_API_KEY; // Replace with your actual API key
+    // console.log(GEMINI_API_KEY);
     const generateAIAnswer = async () => {
         setLoadingAI(true); // Start loading AI response
         try {
             // Dynamically import the Google Generative AI module
             const { GoogleGenerativeAI } = await import('https://esm.run/@google/generative-ai');
+            
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
