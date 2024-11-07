@@ -82,7 +82,6 @@ const ThisQuestion = () => {
                     body: JSON.stringify({ email })
                 }
             );
-            console.log(ansId);
             if (!response.ok) {
                 throw new Error(`Failed to ${voteType}: ${response.status}`);
             }
@@ -93,7 +92,6 @@ const ThisQuestion = () => {
 
     const handleChange = (e) => {
        setCreateAns(e.target.value);
-        
     };
 
     const handleAnswerSubmit = async (e) => {
@@ -102,10 +100,8 @@ const ThisQuestion = () => {
 
         const answerData = {
             questionId: id,
-            
             answer: createAns,
             userEmail: email
-           
         };
 
         try {
@@ -120,7 +116,7 @@ const ThisQuestion = () => {
             if (response.ok) {
                 const createdAnswer = await response.json();
                 setAnswer((prevAnswers) => [...prevAnswers, createdAnswer]);
-                setCreateAns(''); 
+                setCreateAns('');
             } else {
                 console.error("Failed to submit answer:", response.statusText);
             }
@@ -129,64 +125,83 @@ const ThisQuestion = () => {
         }
     };
 
-    const handleVote = (ansId, voteType)=>{
-        if(!isLoggedIn()){
-            alert("You need to logIn to vote");
+    const handleVote = (ansId, voteType) => {
+        if (!isLoggedIn()) {
+            alert("You need to log in to vote");
+        } else {
+            toggleVotes(ansId, voteType);
         }
-        else{
-            toggleVotes(ansId,voteType);
-        }
-    }
+    };
 
     if (!question) {
-        return <p>Loading...</p>;
+        return <p className="text-center text-gray-600">Loading...</p>;
     }
 
     return (
-        <div>
-            <h2>{question.title}</h2>
-            <p><strong>Description:</strong> {question.description}</p>
-            <p><strong>Posted By:</strong> {question.postedBy}</p>
-            <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
-            <p><strong>Answer:</strong> {question.apiAnswer || "Answer not generated yet."}</p>
-            {question.imageUrl && (
-                <div>
-                    <img src={question.imageUrl} alt="Related" style={{ maxWidth: '20%', height: 'auto' }} />
-                </div>
-            )}
-            {!isLoggedIn() ? (
-                <div>
-                    You need to log in to write an answer! <Link to="/Login"><button>LOGIN</button></Link>
-                </div>
+        <div className="container mx-auto p-4 max-w-4xl">
+            <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2">{question.title}</h2>
+                <p className="text-gray-700 mb-4"><strong>Description:</strong> {question.description}</p>
+                <p className="text-gray-600 mb-2"><strong>Posted By:</strong> {question.postedBy}</p>
+                <p className="text-gray-600 mb-4"><strong>Tags:</strong> {question.tags.join(', ')}</p>
+                <p className="text-gray-600 mb-4"><strong>Answer:</strong> {question.apiAnswer || "Answer not generated yet."}</p>
+                {question.imageUrl && (
+                    <img src={question.imageUrl} alt="Related" className="w-1/3 h-auto rounded-md shadow-md" />
+                )}
+            </div>
 
-              
-            ):(
-                <form onSubmit={handleAnswerSubmit}>
+            {!isLoggedIn() ? (
+                <div className="bg-yellow-100 p-4 rounded-lg shadow-md mb-4 text-center">
+                    You need to log in to write an answer!
+                    <Link to="/Login">
+                        <button className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg">LOGIN</button>
+                    </Link>
+                </div>
+            ) : (
+                <form onSubmit={handleAnswerSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md mb-6">
                     <textarea
                         value={createAns}
                         onChange={handleChange}
                         placeholder="Write your answer here..."
                         required
+                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <button type="submit">Submit Answer</button>
+                    <button
+                        type="submit"
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    >
+                        Submit Answer
+                    </button>
                 </form>
             )}
-            {answer.length > 0 ? (
-                answer.map((ans) => (
-                    <div key={ans._id}>
-                        <div>{ans.answer}</div>
-                        <button onClick={() => handleVote(ans._id, 'upvote')}>
-                            Upvotes: {ans.upvotedBy.length}
-                        </button>
-                        <button onClick={() => handleVote(ans._id, 'downvote')}>
-                            Downvotes: {ans.downvotedBy.length}
-                        </button>
-                        <br /><br />
-                    </div>
-                ))
-            ) : (
-                <p>No Answers yet for this question</p>
-            )}
+
+            <div className="space-y-4">
+                {answer.length > 0 ? (
+                    answer.map((ans) => (
+                        <div key={ans._id} className="bg-white p-4 rounded-lg shadow-md">
+                            <p className="text-gray-800 mb-2">{ans.answer}</p>
+                            <div className="flex items-center space-x-4">
+                                <button
+                                    onClick={() => handleVote(ans._id, 'upvote')}
+                                    className="flex items-center text-blue-600 hover:text-blue-800"
+                                >
+                                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a7 7 0 1114 0A7 7 0 013 10zm7-4a1 1 0 012 0v4h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H8a1 1 0 110-2h2V6z" /></svg>
+                                    {ans.upvotedBy.length} Upvotes
+                                </button>
+                                <button
+                                    onClick={() => handleVote(ans._id, 'downvote')}
+                                    className="flex items-center text-red-600 hover:text-red-800"
+                                >
+                                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M3 10a7 7 0 1114 0A7 7 0 013 10zm7-4a1 1 0 012 0v4h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H8a1 1 0 110-2h2V6z" /></svg>
+                                    {ans.downvotedBy.length} Downvotes
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center text-gray-600">No Answers yet for this question</p>
+                )}
+            </div>
         </div>
     );
 };

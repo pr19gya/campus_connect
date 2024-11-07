@@ -14,10 +14,15 @@ const CreateQuestion = () => {
         apiAnswer: ''  
     });
     const [loadingAI, setLoadingAI] = useState(false);  
+    const [message, setMessage] = useState(null);
 
     const GEMINI_API_KEY = import.meta.env.VITE_APP_GEMINI_API_KEY; 
    
     const generateAIAnswer = async () => {
+        if (!formData.title || !formData.description) {
+            alert('Please fill out the title and description before generating an AI answer.');
+            return;
+        }
         setLoadingAI(true); 
         try {
             
@@ -99,18 +104,20 @@ const CreateQuestion = () => {
             email,
             title: formData.title,
             description: formData.description,
-            tags: formData.tags,
+            tags: formData.tags.length ? formData.tags : null,
             imageUrl: imageUrl || null,
             apiAnswer: formData.apiAnswer  
         };
 
         try {
             const response = await axios.post(`${base_url}question/create`, questionData);
-            if (response.data && response.data.success) {
+            if (response.status === 201) {
+                setMessage("Question created successfully!");
                 console.log("Question created successfully:", response.data);
             } else {
-                console.error("Failed to create question:", response.data.message);
+                console.error("Failed to create question:", response.data ? response.data.message : "Unknown error");
             }
+            
         } catch (error) {
             console.error("Error submitting question:", error);
         }
@@ -149,7 +156,7 @@ const CreateQuestion = () => {
                     name="tags"
                     placeholder="Tags (comma separated)"
                     onChange={handleTagChange}
-                    required
+                   
                 />
                 <input
                     type="file"
