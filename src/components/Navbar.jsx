@@ -16,6 +16,7 @@ const Navbar = () => {
                 <div>
                 <button onClick={handleLogOut}>LOGOUT</button>
                 <Link to="/Profile"><button>Profile</button></Link>
+                <Link to = "/Mentorship"><button>Mentorship Sessions</button></Link>
                 </div>
             )}
         </div>

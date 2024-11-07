@@ -6,6 +6,8 @@ import AllQuestions from "./app/questions/AllQuestions"
 import CreateQuestion from "./app/questions/CreateQuestion"
 import ThisQuestion from "./app/questions/ThisQuestion"
 import Profile from "./app/login/Profile"
+import AllSessions from "./app/mentorship/AllSessions"
+import CreateSession from "./app/mentorship/CreateSession"
 
 
 
@@ -21,7 +23,8 @@ function App() {
       <Route path="/Login" element={<Login/>}/>
       <Route path="/question/:id" element={<ThisQuestion />} />
       <Route path="/Profile" element={<Profile />} />
-      
+      <Route path="/Mentorship" element={<AllSessions/>}/>
+      <Route path="/CreateSession" element={<CreateSession/>}/>
     </Routes>
     </>
   )
