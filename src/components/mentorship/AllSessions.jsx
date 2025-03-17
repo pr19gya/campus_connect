@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { base_url } from '../../base_url';
 import { Link } from 'react-router-dom';
+import { CardContainer, CardItem } from '../ui/3dcard';
+import { CardBody } from '@material-tailwind/react';
 
 const AllSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -14,7 +16,7 @@ const AllSessions = () => {
         
         if (response.ok) {
           const data = await response.json();
-          setSessions(data.data); // Access 'data' array directly
+          setSessions(data.data.reverse()); // Access 'data' array directly
         } else {
           setError("Error fetching sessions data");
         }
@@ -51,7 +53,7 @@ const AllSessions = () => {
   }
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto pt-8 bg-slate-950 min-h-screen">
       {/* Error Handling */}
       {error && (
         <div className="bg-red-500 text-white p-4 rounded mb-4">
@@ -62,26 +64,85 @@ const AllSessions = () => {
       {/* Session Listings */}
       {sessions.length > 0 ? (
         sessions.map((sess) => (
-          <div
-            key={sess._id}
-            className="bg-white shadow-md rounded-lg p-6 mb-6 hover:shadow-xl transition-all"
-            style={{ border: '1px solid #ddd' }}
+          
+            <CardContainer key={sess._id}  className="inter-var ">
+                                            <CardBody className="bg-gray-50 relative group/card mt-8 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-slate-950 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[65rem] h-auto rounded-xl p-6 border  ">
+                                                       
+                                                <CardItem
+                                                translateZ="50"
+                                                className="text-xl font-bold text-neutral-600 dark:text-white"
+                                                >
+                                                {sess.title}
+                                                </CardItem>
+                                                <CardItem
+                                                as="p"
+                                                translateZ="60"
+                                                className="text-neutral-500 text-sm  mt-2 dark:text-neutral-300"
+                                                >
+                                                {sess.description}
+                                                </CardItem>
+                                                
+                                                <div className=" mt-5">
+                                                <CardItem
+                                                    translateZ={20}
+                                                    as={Link}
+                                                    href="https://twitter.com/mannupaaji"
+                                                    target="__blank"
+                                                    className=" py-2 rounded-xl text-sm font-normal dark:text-cyan-500"
+                                                >
+                                                   <b> <strong>Conducted By:</strong> {sess.conductedByName} ({sess.conductedByEmail})</b>
+                                                </CardItem>
+                                                
+                                                </div>
+                                                <div className=" mt-2">
+                                                <CardItem
+                                                    translateZ={20}
+                                                    as={Link}
+                                                    href="https://twitter.com/mannupaaji"
+                                                    target="__blank"
+                                                    className=" py-2 rounded-xl text-sm font-normal dark:text-cyan-500"
+                                                >
+                                                   <b> <strong>Scheduled Time:</strong> {new Date(sess.scheduleTime).toLocaleString()}</b>
+                                                </CardItem>
+                                                
+                                                </div>
+                                                <div className=" mt-2">
+                                                <CardItem
+                                                    translateZ={20}
+                                                    as={Link}
+                                                    href="https://twitter.com/mannupaaji"
+                                                    target="__blank"
+                                                    className=" py-2 rounded-xl text-sm font-normal dark:text-cyan-500"
+                                                >
+                                                   <b><strong>Status:</strong> {renderSessionStatus(sess.status)}</b>
+                                                </CardItem>
+                                                
+                                                </div>
+                                                <div className=" mt-2">
+                                                <CardItem
+                                                    translateZ={20}
+                                                    as={Link}
+                                                    href="https://twitter.com/mannupaaji"
+                                                    target="__blank"
+                                                    className=" py-2 rounded-xl text-sm font-normal dark:text-cyan-500"
+                                                >
+                                                   <b><strong>Duration:</strong> {sess.duration} minutes</b>
+                                                </CardItem>
+                                                
+                                                </div>
+                                                <Link to={sess.meetLink} target="_blank" rel="noopener noreferrer">
+                                                <div className='mt-5'>
+                                                <CardItem
+            translateZ={20}
+            as="button"
+            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
           >
-            <h3 className="text-xl font-semibold text-blue-600">{sess.title}</h3>
-            <p className="text-gray-700 mt-2"><strong></strong> {sess.description}</p>
-            <p className="text-gray-700 mt-2"><strong>Conducted By:</strong> {sess.conductedByName} ({sess.conductedByEmail})</p>
-            <p className="text-gray-700 mt-2"><strong>Scheduled Time:</strong> {new Date(sess.scheduleTime).toLocaleString()}</p>
-            <p className="text-gray-700 mt-2"><strong>Status:</strong> {renderSessionStatus(sess.status)}</p>
-            <p className="text-gray-700 mt-2"><strong>Duration:</strong> {sess.duration} minutes</p>
+            Join Session →
+          </CardItem></div></Link>
+                                            </CardBody>
+                                        </CardContainer>
             
-            <div className="mt-4">
-              <Link to={sess.meetLink} target="_blank" rel="noopener noreferrer">
-                <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                  Join Session
-                </button>
-              </Link>
-            </div>
-          </div>
+          
         ))
       ) : (
         <div className="text-gray-500 text-lg">No sessions available at the moment.</div>

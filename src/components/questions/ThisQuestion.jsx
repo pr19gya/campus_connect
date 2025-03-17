@@ -138,48 +138,81 @@ const ThisQuestion = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 max-w-4xl">
-            <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">{question.title}</h2>
-                <p className="text-gray-700 mb-4"><strong>Description:</strong> {question.description}</p>
-                <p className="text-gray-600 mb-2"><strong>Posted By:</strong> {question.postedBy}</p>
-                <p className="text-gray-600 mb-4"><strong>Tags:</strong> {question.tags.join(', ')}</p>
-                <p className="text-gray-600 mb-4"><strong>Answer:</strong> {question.apiAnswer || "Answer not generated yet."}</p>
+        <div className='bg-slate-950 min-h-screen'>
+        <div className="container bg-slate-950 mx-auto rounded-lg pt-10  max-w-5xl">
+            <div className="bg-slate-900 p-6 text-center rounded-lg shadow-md mb-6">
+                <h2 className="text-2xl font-semibold text-slate-300 mb-2">{question.title}</h2>
+                <p className="text-slate-300 mb-4"><strong></strong> {question.description}</p>
+                
+                {/* <p className="text-gray-600 mb-4"><strong>Tags:</strong>{question.tags ? {question.tags.join(', ')} : ''}</p> */}
+                <p className="text-slate-300 mb-4"><strong>EduBot :</strong> {question.apiAnswer || "Answer not generated yet."}</p>
+                <p className="text-cyan-600 mb-2"><strong>Posted By:</strong> {question.postedBy}</p>
                 {question.imageUrl && (
-                    <img src={question.imageUrl} alt="Related" className="w-1/3 h-auto rounded-md shadow-md" />
+                    <div className='flex  justify-center items-center pt-5'>
+                        <img src={question.imageUrl} alt="Related" className="w-1/2 h-auto  rounded-md shadow-md" />
+                    </div>
                 )}
             </div>
 
             {!isLoggedIn() ? (
-                <div className="bg-yellow-100 p-4 rounded-lg shadow-md mb-4 text-center">
+                <div className="bg-slate-950 p-4 text-slate-300 rounded-lg shadow-md mb-4 text-center">
                     You need to log in to write an answer!
                     <Link to="/Login">
-                        <button className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg">LOGIN</button>
-                    </Link>
+                                    <button className=" overflow-hidden relative w-40 m-4 p-2 h-12 bg-slate-900 text-white border-none rounded-md text-xl font-bold cursor-pointer  z-10 group"
+                                          type="button"
+                                          >
+                                          LogIn
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-300 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-12  z-10"
+                                              >LogIn</span>
+                                          </button>
+                                    </Link>
                 </div>
             ) : (
-                <form onSubmit={handleAnswerSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md mb-6">
+                <form onSubmit={handleAnswerSubmit} className="bg-slate-950 p-4 rounded-lg shadow-md mb-6">
+                    <div className='m-4 p-[0.1rem] rounded-md  bg-gradient-to-r from-slate-700  to-cyan-500'>
                     <textarea
                         value={createAns}
                         onChange={handleChange}
                         placeholder="Write your answer here..."
                         required
-                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full text-slate-300 px-4 py-2 bg-slate-950 rounded-md focus:outline-none "
                     />
-                    <button
-                        type="submit"
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                    >
-                        Submit Answer
-                    </button>
+                    </div>
+                    <button className=" overflow-hidden relative w-40 m-4 p-2 h-12 bg-slate-900 text-white border-none rounded-md text-xl font-bold cursor-pointer  z-10 group"
+                                          type="submit"
+                                          >
+                                          Submit
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-300 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-12  z-10"
+                                              >Submit</span>
+                                          </button>
                 </form>
             )}
 
-            <div className="space-y-4">
+            <div className="space-y-4 pb-10">
                 {answer.length > 0 ? (
                     answer.map((ans) => (
-                        <div key={ans._id} className="bg-white p-4 rounded-lg shadow-md">
-                            <p className="text-gray-800 mb-2">{ans.answer}</p>
+                        <div key={ans._id} className="bg-slate-900 p-4 rounded-lg shadow-md">
+                            <p className="text-slate-300 mb-2">{ans.answer}</p>
                             <div className="flex items-center space-x-4">
                                 <button
                                     onClick={() => handleVote(ans._id, 'upvote')}
@@ -202,6 +235,7 @@ const ThisQuestion = () => {
                     <p className="text-center text-gray-600">No Answers yet for this question</p>
                 )}
             </div>
+        </div>
         </div>
     );
 };

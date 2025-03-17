@@ -8,6 +8,7 @@ import ThisQuestion from "./app/questions/ThisQuestion"
 import Profile from "./app/login/Profile"
 import AllSessions from "./app/mentorship/AllSessions"
 import CreateSession from "./app/mentorship/CreateSession"
+import MainPage from "./app/main/MainPage"
 
 
 
@@ -17,7 +18,8 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path="/" element={<AllQuestions/>}/>
+    <Route path="/" element={<MainPage/>}/>
+      <Route path="/Questions" element={<AllQuestions/>}/>
       <Route path="/Create" element={<CreateQuestion/>}/>
       <Route path="/Register" element={<Register/>}/>
       <Route path="/Login" element={<Login/>}/>

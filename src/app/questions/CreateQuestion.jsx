@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateQuestionC from '../../components/questions/CreateQuestion'
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/global/Navbar'
 
 const CreateQuestion = () => {
   return (

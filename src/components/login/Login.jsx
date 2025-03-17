@@ -48,11 +48,11 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Login</h2>
+        <div className="flex justify-center items-center min-h-screen bg-slate-950">
+            <div className="bg-slate-950 p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 className="text-4xl font-bold text-center text-cyan-600 mb-6">LogIn</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
+                    <div className='m-4 p-[0.1rem] rounded-md  bg-gradient-to-r from-slate-700  to-cyan-500'>
                         <input
                             type="email"
                             name="email"
@@ -60,10 +60,10 @@ const Login = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full text-slate-300 px-4 py-2 bg-slate-950 rounded-md focus:outline-none "
                         />
                     </div>
-                    <div>
+                    <div className='m-4 p-[0.1rem] rounded-md  bg-gradient-to-r from-slate-700  to-cyan-500'>
                         <input
                             type="password"
                             name="password"
@@ -71,20 +71,33 @@ const Login = () => {
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                            className="w-full text-slate-300 px-4 py-2 bg-slate-950 rounded-md focus:outline-none "
                         />
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
-                    >
-                        Login
-                    </button>
+                    <div className='flex justify-center items-center'>
+                    <button className=" overflow-hidden relative w-40  p-2 h-12 bg-slate-900 text-white border-none rounded-md text-xl font-bold cursor-pointer  z-10 group"
+                                          type="submit"
+                                          >
+                                          LogIn
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-300 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="absolute w-44 h-32 -top-8 -left-2 bg-cyan-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-bottom"
+                                          ></span>
+                                          <span
+                                              className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-12  z-10"
+                                              >LogIn</span>
+                                          </button></div>
+                    
                 </form>
                 <div className="mt-4 text-center">
                     <Link
                         to="/Register"
-                        className="text-blue-600 hover:text-blue-700 font-medium transition duration-300"
+                        className="text-cyan-600 hover:text-cyan-700 font-medium transition duration-300"
                     >
                         Don't have an account? Register Here!
                     </Link>

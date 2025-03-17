@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/global/Navbar'
 import AllSessionsC from '../../components/mentorship/AllSessions'
 
 const AllSessions = () => {
