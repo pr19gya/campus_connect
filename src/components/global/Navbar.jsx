@@ -148,45 +148,45 @@ const Navbar = () => {
               }`}
             >
               <li role="none" className="flex items-stretch">
-                <a
+                <Link
                   role="menuitem"
                   aria-haspopup="false"
                   className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-cyan-500 focus:text-cyan-500 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/Questions"
+                  to="/Questions"
                 >
                   <span>Questions</span>
-                </a>
+                </Link>
               </li>
               <li role="none" className="flex items-stretch">
-                <a
+                <Link
                   role="menuitem"
                   aria-current="page"
                   aria-haspopup="false"
                   className="flex items-center gap-2 py-4  transition-colors duration-300 hover:text-cyan-500 focus:text-cyan-500 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/Create"
+                  to="/Create"
                 >
                   <span>Ask</span>
-                </a>
+                </Link>
               </li>
               <li role="none" className="flex items-stretch">
-                <a
+                <Link
                   role="menuitem"
                   aria-haspopup="false"
                   className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-cyan-500 focus:text-cyan-500 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/Mentorship"
+                  to="/Mentorship"
                 >
                   <span>Mentorship</span>
-                </a>
+                </Link>
               </li>
               <li role="none" className="flex items-stretch">
-                <a
+                <Link
                   role="menuitem"
                   aria-haspopup="false"
                   className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-cyan-500 focus:text-cyan-500 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/CreateSession"
+                  to="/CreateSession"
                 >
                   <span>Create Session</span>
-                </a>
+                </Link>
               </li>
             </ul>
             <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
@@ -213,8 +213,8 @@ const Navbar = () => {
                     </Link>
                 </div>
             ) : (
-              <a
-              href="/Profile"
+              <Link
+              to="/Profile"
               className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-white"
             >
               <img
@@ -226,7 +226,7 @@ const Navbar = () => {
                 className="max-w-full rounded-full"
               />
              
-            </a>
+            </Link>
                                 
                             )}
               

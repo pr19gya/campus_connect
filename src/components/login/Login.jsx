@@ -99,7 +99,7 @@ const Login = () => {
                         to="/Register"
                         className="text-cyan-600 hover:text-cyan-700 font-medium transition duration-300"
                     >
-                        Don't have an account? Register Here!
+                        Dont have an account? Register Here!
                     </Link>
                 </div>
             </div>

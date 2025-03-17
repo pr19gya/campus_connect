@@ -47,7 +47,7 @@ const AllQuestions = () => {
         };
 
         fetchQuestions();
-    }, []);
+    }, );
 
     const handleTagClick = (tag) => {
         setSelectedTags((prevTags) => {
