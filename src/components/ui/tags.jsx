@@ -41,7 +41,7 @@ export function HoverBorderGradient({
     if (!hovered) {
       const interval = setInterval(() => {
         setDirection((prevState) => rotateDirection(prevState));
-      }, duration * 1000);
+      }, duration * 200);
       return () => clearInterval(interval);
     }
   }, [hovered]);
@@ -52,7 +52,7 @@ export function HoverBorderGradient({
       }}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex rounded-full border  content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
+        "relative flex rounded-full border  content-center bg-black/20 hover:bg-green-200 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
       )}
       {...props}>

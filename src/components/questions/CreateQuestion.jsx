@@ -37,7 +37,7 @@ const CreateQuestion = () => {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-            const prompt = `Generate a concise, helpful answer for the following question:\nTitle: ${formData.title}\nDescription: ${formData.description}. Answer in plain text.`;
+            const prompt = `Generate a helpful answer for the following question:\nTitle: ${formData.title}\nDescription: ${formData.description}. Answer in plain text.`;
             const result = await model.generateContent(prompt);
             const apiAnswer = result.response.text();
 
@@ -114,7 +114,7 @@ const CreateQuestion = () => {
             apiAnswer: formData.apiAnswer
         };
 
-        try {
+        try { 
             const response = await axios.post(`${base_url}question/create`, questionData);
             if (response.status === 201) {
                 setMessage("Question created successfully!");

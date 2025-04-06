@@ -33,7 +33,7 @@ const Login = () => {
                 const data = await response.json();
                 console.log('Got the response', data);
                 localStorage.setItem('Token', data.token);
-                localStorage.setItem('Email', data.email);
+                localStorage.setItem('Email', data.email); 
 
                 if (isLogginIn()) {
                     console.log('Token is present');

@@ -9,6 +9,7 @@ import Profile from "./app/login/Profile"
 import AllSessions from "./app/mentorship/AllSessions"
 import CreateSession from "./app/mentorship/CreateSession"
 import MainPage from "./app/main/MainPage"
+import OneProfile from "./app/login/OneProfile"
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/Register" element={<Register/>}/>
       <Route path="/Login" element={<Login/>}/>
       <Route path="/question/:id" element={<ThisQuestion />} />
+      <Route path="/profile/:email" element={<OneProfile />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/Mentorship" element={<AllSessions/>}/>
       <Route path="/CreateSession" element={<CreateSession/>}/>

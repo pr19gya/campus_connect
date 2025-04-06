@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { base_url } from '../../base_url';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CardContainer, CardItem } from '../ui/3dcard';
 import { CardBody } from '@material-tailwind/react';
 
-const Profile = () => {
+const OneProfile = () => {
+    const { email } = useParams();
   const [userDetail, setUserDetail] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const email = localStorage.getItem('Email');
+//   const email = localStorage.getItem('Email');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,11 +48,7 @@ const Profile = () => {
     fetchUserDetails();
   }, [email]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('Token');
-    localStorage.removeItem('Email');
-    navigate('/login');
-  };
+  
 
   const handleDelete = async (questionId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this question?");
@@ -89,10 +86,10 @@ const Profile = () => {
           {userDetail ? (
             <>
               <h2 className="text-3xl text-slate-300 flex items-center justify-center font-bold">
-                Hello {userDetail.user.firstName} {userDetail.user.lastName}!
+                {userDetail.user.firstName} {userDetail.user.lastName}
               </h2>
               <p className="text-slate-300 flex items-center justify-center pt-5">{userDetail.user.college}</p>
-              <div className="flex items-center justify-center mt-3">
+              {/* <div className="flex items-center justify-center mt-3">
                 <button
                   className="relative w-40 m-4 p-2 h-12 bg-slate-900 text-white rounded-md text-xl font-bold cursor-pointer z-10 group overflow-hidden"
                   type="button"
@@ -106,7 +103,7 @@ const Profile = () => {
                     LogOut
                   </span>
                 </button>
-              </div>
+              </div> */}
             </>
           ) : (
             <div>Loading user details...</div>
@@ -116,7 +113,7 @@ const Profile = () => {
 
       {/* User's Questions Section */}
       <div className="bg-slate-950 max-w-5xl m-auto shadow-md rounded-lg p-6">
-        <h3 className="text-2xl text-slate-300 font-bold mb-5 text-center">Your Questions</h3>
+        <h3 className="text-2xl text-slate-300 font-bold mb-5 text-center">Questions by {userDetail.user.firstName}</h3>
         {questions.length > 0 ? (
           questions.map((ques) => (
             <div key={ques.questionId} className="border-b border-gray-200 pb-4 mb-4">
@@ -173,4 +170,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default OneProfile;
