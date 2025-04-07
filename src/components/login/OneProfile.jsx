@@ -148,16 +148,7 @@ const OneProfile = () => {
                       </CardItem>
                     </div>
                   </Link>
-                  <div className="mt-5">
-                    <CardItem
-                      translateZ={20}
-                      as="button"
-                      className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
-                      onClick={() => handleDelete(ques.questionId)}
-                    >
-                      Delete
-                    </CardItem>
-                  </div>
+                  
                 </CardBody>
               </CardContainer>
             </div>
